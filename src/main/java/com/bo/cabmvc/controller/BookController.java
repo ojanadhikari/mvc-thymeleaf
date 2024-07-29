@@ -30,7 +30,9 @@ public class BookController {
     }
 
     @PostMapping("/save-book")
-    public String saveBook(Model model , @ModelAttribute("book")BookPojo book,BindingResult bindingResult){
+    public String saveBook(Model model ,
+                           @ModelAttribute("book")BookPojo book,
+                           BindingResult bindingResult){
         if (bindingResult.hasErrors()) {
             return "add-book";
         }
