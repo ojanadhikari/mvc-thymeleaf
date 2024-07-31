@@ -3,6 +3,7 @@ package com.bo.cabmvc.controller;
 import com.bo.cabmvc.dto.BookPojo;
 import com.bo.cabmvc.service.BookService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -17,7 +18,7 @@ public class BookController {
     private final BookService bookService;
     private static final String RETURN_URL = "redirect:/";
 
-    @GetMapping
+    @GetMapping("/")
     public String loadBookPage(Model model){
         model.addAttribute("books",bookService.getAll());
         return "book";
@@ -42,6 +43,7 @@ public class BookController {
 
 
     @GetMapping("/edit/{id}")
+//    @PreAuthorize("hasAuthority('ADMIN')")
     public String showUpdateForm(@PathVariable Integer id, Model model) {
         model.addAttribute("book",bookService.getById(id));
         return "update-book";
@@ -59,15 +61,16 @@ public class BookController {
     }
 
     @GetMapping("/delete/{id}")
+//    @PreAuthorize("hasAuthority('ADMIN')")
     public String deleteBook(@PathVariable Integer id,Model model){
         bookService.delete(id);
         return RETURN_URL;
     }
 //
-//    @GetMapping("/403")
-//    public String getAccessDeniedPage(){
-//        return "403";
-//    }
+    @GetMapping("/403")
+    public String getAccessDeniedPage(){
+        return "403";
+    }
 
 
 }

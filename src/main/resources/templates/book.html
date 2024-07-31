@@ -6,7 +6,7 @@
 </head>
 <body>
 <a th:href="add-book" class="link-success">Add new Book</a>
-<!--<a th:href="@{/logout}">Log out</a>-->
+<a th:href="@{/logout}">Log out</a>
 
 <table class="table">
   <thead class="thead-dark">
@@ -14,8 +14,12 @@
     <th scope="col">Name</th>
     <th scope="col">Author</th>
     <th scope="col">Price</th>
-    <th scope="col">Edit</th>
-    <th scope="col">Delete</th>
+    <th scope="col"
+        sec:authorize ="hasAuthority('ADMIN')"
+    >Edit</th>
+    <th scope="col"
+        sec:authorize ="hasAuthority('ADMIN')"
+    >Delete</th>
   </tr>
   </thead>
   <tbody>
@@ -25,10 +29,12 @@
     <td th:text=${book.author}></td>
     <td th:text=${book.price}></td>
     <td>
-      <a
+      <a sec:authorize ="hasAuthority('ADMIN')"
         th:href="@{/edit/{id} (id=${book.id})}"
       >Edit</a></td>
-    <td><a th:href="@{/delete/{id} (id=${book.id})}">Delete</a></td>
+    <td><a sec:authorize ="hasAuthority('ADMIN')"
+           th:href="@{/delete/{id} (id=${book.id})}"
+    >Delete</a></td>
   </tr>
   </tbody>
 </table>
