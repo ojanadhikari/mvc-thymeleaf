@@ -43,7 +43,7 @@ public class BookController {
 
 
     @GetMapping("/edit/{id}")
-//    @PreAuthorize("hasAuthority('ADMIN')")
+    @PreAuthorize("hasAuthority('ADMIN')")
     public String showUpdateForm(@PathVariable Integer id, Model model) {
         model.addAttribute("book",bookService.getById(id));
         return "update-book";
@@ -61,7 +61,7 @@ public class BookController {
     }
 
     @GetMapping("/delete/{id}")
-//    @PreAuthorize("hasAuthority('ADMIN')")
+    @PreAuthorize("hasAuthority('ADMIN')")
     public String deleteBook(@PathVariable Integer id,Model model){
         bookService.delete(id);
         return RETURN_URL;
