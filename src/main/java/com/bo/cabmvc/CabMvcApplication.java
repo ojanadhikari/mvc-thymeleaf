@@ -2,6 +2,8 @@ package com.bo.cabmvc;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.context.annotation.Bean;
+import org.springframework.web.client.RestClient;
 
 @SpringBootApplication
 public class CabMvcApplication {
@@ -10,4 +12,9 @@ public class CabMvcApplication {
         SpringApplication.run(CabMvcApplication.class, args);
     }
 
+
+    @Bean
+    public RestClient restClient(){
+        return RestClient.builder().baseUrl("https://petstore.swagger.io/v2").build();
+    }
 }
