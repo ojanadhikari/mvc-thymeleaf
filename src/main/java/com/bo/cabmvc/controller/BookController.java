@@ -3,6 +3,8 @@ package com.bo.cabmvc.controller;
 import com.bo.cabmvc.dto.BookPojo;
 import com.bo.cabmvc.service.BookService;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -14,12 +16,17 @@ import org.springframework.web.bind.annotation.PostMapping;
 
 @Controller
 @RequiredArgsConstructor
+@Slf4j
 public class BookController {
     private final BookService bookService;
     private static final String RETURN_URL = "redirect:/";
 
+    @Value("${server.url}")
+    private String serverUrl;
+
     @GetMapping("/")
     public String loadBookPage(Model model){
+        log.info(serverUrl);
         model.addAttribute("books",bookService.getAll());
         return "book";
     }
